@@ -1,8 +1,8 @@
 package com.javaee.dao;
 
 import com.javaee.entity.Country;
-import com.javaee.utils.JpaConfig;
-import jakarta.persistence.EntityManager;
+import com.javaee.utils.HibernateConfig;
+import org.hibernate.Session;
 
 import java.util.List;
 
@@ -10,10 +10,12 @@ public class CountryDAOImpl implements CountryDAO {
 
 	@Override
 	public List<Country> findAll(String search, int offset, int recordPerPage) {
-		EntityManager entityManager = JpaConfig.getEntityManager();
-		String SQL = "SELECT c FROM Country c WHERE c.name LIKE :search OR c.continent LIKE :search ORDER BY c.countryId ASC";
-		return entityManager.createQuery(SQL, Country.class)
-				.setParameter("search", "%" + search + "%")
+		Session session = HibernateConfig.getSession();
+		String searchPattern = "%"+search+"%";
+		String SQL = "SELECT c FROM Country c WHERE c.name LIKE :searchName OR c.continent LIKE :searchContinent ORDER BY c.countryId ASC";
+		return session.createQuery(SQL, Country.class)
+				.setParameter("searchName", searchPattern )
+				.setParameter("searchContinent", searchPattern)
 				.setFirstResult(offset)
 				.setMaxResults(recordPerPage)
 				.getResultList();
@@ -21,46 +23,47 @@ public class CountryDAOImpl implements CountryDAO {
 
 	@Override
 	public void save(Country country) {
-		EntityManager entityManager = JpaConfig.getEntityManager();
-		entityManager.getTransaction().begin();
-		entityManager.persist(country);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		Session session = HibernateConfig.getSession();
+		session.getTransaction().begin();
+		session.persist(country);
+		session.getTransaction().commit();
+		session.close();
 
 	}
 
 	@Override
 	public void update(Country country) {
-		EntityManager entityManager = JpaConfig.getEntityManager();
-		entityManager.getTransaction().begin();
-		entityManager.merge(country);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		Session session = HibernateConfig.getSession();
+		session.getTransaction().begin();
+		session.merge(country);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 	@Override
 	public void delete(int id) {
-		EntityManager entityManager = JpaConfig.getEntityManager();
-		Country country = entityManager.find(Country.class, id);
-		entityManager.getTransaction().begin();
-		entityManager.remove(country);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		Session session = HibernateConfig.getSession();
+		Country country = session.find(Country.class, id);
+		session.getTransaction().begin();
+		session.remove(country);
+		session.getTransaction().commit();
+		session.close();
 
 	}
 
 	@Override
 	public Country findById(int id) {
-		EntityManager entityManager = JpaConfig.getEntityManager();
-		return entityManager.find(Country.class, id);
+		Session session = HibernateConfig.getSession();
+		return session.find(Country.class, id);
 	}
 
 	@Override
 	public int count(String search) {
-		EntityManager entityManager = JpaConfig.getEntityManager();
-		String SQL = "SELECT COUNT(c) FROM Country c WHERE c.name LIKE :search OR c.continent LIKE :search";
-		return entityManager.createQuery(SQL, Long.class)
-				.setParameter("search", "%" + search + "%")
+		Session session = HibernateConfig.getSession();
+		String SQL = "SELECT COUNT(c) FROM Country c WHERE c.name LIKE :searchName OR c.continent LIKE :searchContinent";
+		return session.createQuery(SQL, Long.class)
+				.setParameter("searchName", "%" + search + "%")
+				.setParameter("searchContinent", "%" + search + "%")
 				.getSingleResult().intValue();
 	}
 }
