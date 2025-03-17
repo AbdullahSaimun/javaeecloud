@@ -2,7 +2,6 @@ package com.javaee.service;
 
 import com.javaee.entity.Country;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface CountryService {
