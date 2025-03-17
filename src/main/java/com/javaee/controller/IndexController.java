@@ -1,10 +1,7 @@
 package com.javaee.controller;
 
-import com.javaee.dao.CountryDAO;
-import com.javaee.dao.CountryDAOImpl;
 import com.javaee.entity.Country;
 import com.javaee.service.CountryService;
-import com.javaee.service.CountryServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -29,7 +26,6 @@ public class IndexController extends HttpServlet {
 
 	public IndexController() {
 	}
-
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

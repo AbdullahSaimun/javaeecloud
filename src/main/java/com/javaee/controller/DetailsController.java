@@ -1,10 +1,7 @@
 package com.javaee.controller;
 
-import com.javaee.dao.CountryDAO;
-import com.javaee.dao.CountryDAOImpl;
 import com.javaee.entity.Country;
 import com.javaee.service.CountryService;
-import com.javaee.service.CountryServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -39,6 +36,6 @@ public class DetailsController extends HttpServlet {
 		}
 		request.setAttribute("details", "Details Page");
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/pages/details.jsp");
-		requestDispatcher.forward(request,response);
+		requestDispatcher.forward(request, response);
 	}
 }

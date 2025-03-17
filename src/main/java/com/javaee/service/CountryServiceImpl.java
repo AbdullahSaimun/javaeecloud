@@ -9,14 +9,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 @ApplicationScoped
-public class CountryServiceImpl implements CountryService{
+public class CountryServiceImpl implements CountryService {
 
 	@Inject
 	private CountryDAO countryDAO;
 
 	@Override
 	public List<Country> findAll(String search, int offset, int recordPerPage) throws SQLException {
-		return countryDAO.findAll(search,offset,recordPerPage);
+		return countryDAO.findAll(search, offset, recordPerPage);
 	}
 
 	@Override
