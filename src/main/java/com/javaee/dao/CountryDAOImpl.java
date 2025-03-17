@@ -2,10 +2,12 @@ package com.javaee.dao;
 
 import com.javaee.entity.Country;
 import com.javaee.utils.JpaConfig;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
 
+@ApplicationScoped
 public class CountryDAOImpl implements CountryDAO {
 
 	@Override

@@ -2,17 +2,16 @@ package com.javaee.service;
 
 import com.javaee.dao.CountryDAO;
 import com.javaee.entity.Country;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
-import java.sql.SQLException;
 import java.util.List;
 
-public class CountryServiceImpl implements CountryService{
+@ApplicationScoped
+public class CountryServiceImpl implements CountryService {
 
-	private final CountryDAO countryDAO;
-
-	public CountryServiceImpl(CountryDAO countryDAO) {
-		this.countryDAO = countryDAO;
-	}
+	@Inject
+	private CountryDAO countryDAO;
 
 
 	@Override
